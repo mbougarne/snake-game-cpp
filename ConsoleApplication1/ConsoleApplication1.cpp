@@ -1,6 +1,7 @@
 #include <iostream>
+#include <conio.h>
 
-enum Directions {
+enum class Directions {
 	STOP,
 	LEFT,
 	RIGHT,
@@ -8,7 +9,7 @@ enum Directions {
 	DOWN
 };
 
-Directions dir = STOP;
+Directions dir;
 bool isGameOver;
 const int width = 20;
 const int height = 20;
@@ -34,7 +35,7 @@ int main() {
 
 void setUp() {
 	isGameOver = false;
-	dir = STOP;
+	dir = Directions::STOP;
 	x = width / 2;
 	y = height / 2;
 	fruitX = rand() % width;
@@ -43,11 +44,74 @@ void setUp() {
 }
 
 void draw() {
+	system("cls"); // for Unix like sys: clear
 
+	for (int i = 0; i < width; i++)
+	{
+		std::cout << "*";
+	}
+
+	std::cout << std::endl;
+
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			if (j == 0)
+			{
+				std::cout << "*";
+			}
+
+			if (i == y && j == x)
+			{
+				std::cout << "O";
+			}
+			else if (i == fruitY && j == fruitX) {
+				std::cout << "F";
+			}
+			else {
+				std::cout << " ";
+			}
+
+
+			if (j == width - 1)
+			{
+				std::cout << "*";
+			}
+		}
+
+		std::cout << std::endl;
+	}
+
+	for (int i = 0; i < width; i++)
+	{
+		std::cout << "*";
+	}
+
+	std::cout << std::endl;
 }
 
 void input() {
-
+	if (_kbhit()) {
+		switch (_getch()) {
+			case 'a':
+				dir = Directions::LEFT;
+				break;
+			case 'd':
+				dir = Directions::RIGHT;
+				break;
+			case 'w':
+				dir = Directions::UP;
+				break;
+			case 's':
+				dir = Directions::DOWN;
+				break;
+			case 'x':
+				dir = Directions::STOP;
+				isGameOver = true;
+				break;
+		}
+	}
 }
 
 void logic() {
