@@ -89,6 +89,7 @@ void draw() {
 	}
 
 	std::cout << std::endl;
+	std::cout << "Score: " << score << std::endl;
 }
 
 void input() {
@@ -115,5 +116,35 @@ void input() {
 }
 
 void logic() {
+	switch (dir)
+	{
+		/*case Directions::STOP:
+			break;*/
+		case Directions::LEFT:
+			x--;
+			break;
+		case Directions::RIGHT:
+			x++;
+			break;
+		case Directions::UP:
+			y--;
+			break;
+		case Directions::DOWN:
+			y++;
+			break;
+		default:
+			break;
+	}
 
+	if ((x > width || x < 0) || (y > height || y < 0))
+	{
+		isGameOver = true;
+	}
+
+	if (x == fruitX && y == fruitY)
+	{
+		score += 10;
+		fruitX = rand() % width;
+		fruitY = rand() % height;
+	}
 }
